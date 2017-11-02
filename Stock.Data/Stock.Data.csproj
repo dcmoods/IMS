@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201711021549283_relationship_change_Stockitem.Designer.cs">
       <DependentUpon>201711021549283_relationship_change_Stockitem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711022003064_StockItem-Temp.cs" />
+    <Compile Include="Migrations\201711022003064_StockItem-Temp.Designer.cs">
+      <DependentUpon>201711022003064_StockItem-Temp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +87,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711021549283_relationship_change_Stockitem.resx">
       <DependentUpon>201711021549283_relationship_change_Stockitem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711022003064_StockItem-Temp.resx">
+      <DependentUpon>201711022003064_StockItem-Temp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

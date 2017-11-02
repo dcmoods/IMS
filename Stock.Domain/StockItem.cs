@@ -16,9 +16,10 @@ namespace Stock.Domain
         public DateTime ReceivedDate { get; set; }
         public DateTime ExpirationDate { get; set; }
         public double Quantity { get; set; }
-
+        public double Temperature { get; set; }
         public int ReceivedBy { get; set; }
         public int UsedBy { get; set; }
+        
 
         [Required]
         public Category Category { get; set; }
