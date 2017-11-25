@@ -20,5 +20,13 @@ namespace Stock.Data
             base.OnModelCreating(modelBuilder);
         }
     }
+
+    public class StockContextConfig : DbConfiguration
+    {
+        public StockContextConfig()
+        {
+            SetDatabaseInitializer(new NullDatabaseInitializer<StockContext>());
+        }
+    }
    
 }
