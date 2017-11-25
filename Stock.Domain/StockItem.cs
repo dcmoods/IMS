@@ -19,9 +19,7 @@ namespace Stock.Domain
         public double Temperature { get; set; }
         public int ReceivedBy { get; set; }
         public int UsedBy { get; set; }
-        
-
-        [Required]
         public Category Category { get; set; }
+
     }
 }

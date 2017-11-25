@@ -1,24 +1,77 @@
-﻿<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS, and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+﻿
+<div>
+    <h2>Stock Items</h2>
 </div>
+
+<div ng-show="toShow()">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Item id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Min-Level</th>
+                <th>Max-Level</th>
+                <th>Unit</th>
+                <th>Price/Unit</th>
+                <th>Received</th>
+                <th>Expiration</th>
+                <th>Quantity</th>
+                <th>Temp</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="stockItem in stockItems | orderBy:orderProp">
+                <td>{{stockItem.StockItemId }}</td>
+                <td>{{stockItem.Name }}</td>
+                <td>{{stockItem.Description }}</td>
+                <td>{{stockItem.MinimumLevel }}</td>
+                <td>{{stockItem.MaximumLevel }}</td>
+                <td>{{stockItem.LevelUnit }}</td>
+                <td>{{stockItem.PricePerUnit }}</td>
+                <td>{{stockItem.ReceivedDate | date:'shortDate' }}</td>
+                <td>{{stockItem.ExpirationDate | date:'shortDate' }}</td>
+                <td>{{stockItem.Quantity }}</td>
+                <td>{{stockItem.Temperature }}</td>
+
+                @*<td>
+                    <button ng-click="editIt
+                    (complaint)">
+                        Edit
+                    </button>
+                </td>
+                <td>
+                    <button ng-click="deleteOne
+                    (complaint)">
+                        Delete
+                    </button>
+                </td>*@
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>ASP.NET Web API is a framework that makes it easy to build HTTP services that reach
-        a broad range of clients, including browsers and mobile devices. ASP.NET Web API
-        is an ideal platform for building RESTful applications on the .NET Framework.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301870">Learn more &raquo;</a></p>
+    <div class="col-md-12">
+        <h2>Add Items</h2>
+        <input type="text" ng-model="Name" size="40" placeholder="Name" class="form-control" />
+        <input type="text" ng-model="Description" size="40" placeholder="Description" class="form-control" />
+        <input type="text" ng-model="MinimumLevel" size="40" placeholder="Min" class="form-control" />
+        <input type="text" ng-model="MaximumLevel" size="40" placeholder="Max" class="form-control" />
+        <input type="text" ng-model="LevelUnit" size="40" placeholder="Unit" class="form-control" />
+        <input type="text" ng-model="PricePerUnit" size="40" placeholder="Price/Unit" class="form-control" />
+        <input type="text" ng-model="Quantity" size="40" placeholder="Quantity" class="form-control" />
+        <input type="text" ng-model="Temperature" size="40" placeholder="Temp" class="form-control" />
+        <input type="button" value="Add" ng-click="postOne();" class="btn btn-success"/>
+        <p ng-show="errorToAdd">{{errorToAdd}}</p>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301871">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301872">Learn more &raquo;</a></p>
-    </div>
+    
 </div>
+@*<div>
+    <h2>Edit complaint</h2>
+    <p>Complaint id: {{idToUpdate}}</p>
+    <input type="text" ng-model="descToUpdate"
+           size="40" placeholder="Description" />
+    <input type="button" value="Save" ng-click="putOne();" />
+    <p ng-show="errorToUpdate">{{errorToAdd}}</p>
+</div>*@

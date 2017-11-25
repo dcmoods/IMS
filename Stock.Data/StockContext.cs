@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Stock.Data
 {
+   
     public class StockContext : DbContext
     {
         public StockContext() : base("name=IMSConnectionString") { }
@@ -21,12 +22,12 @@ namespace Stock.Data
         }
     }
 
-    public class StockContextConfig : DbConfiguration
-    {
-        public StockContextConfig()
-        {
-            SetDatabaseInitializer(new NullDatabaseInitializer<StockContext>());
-        }
-    }
+    //public class StockContextConfig : DbConfiguration
+    //{
+    //    public StockContextConfig()
+    //    {
+    //        SetDatabaseInitializer(new NullDatabaseInitializer<StockContext>());
+    //    }
+    //}
    
 }
