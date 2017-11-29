@@ -32,41 +32,64 @@
                     $scope.errorToSearch = errorMessage(data, status);
                 }))
         };
+
         $scope.postOne = function () {
             $http.post(uri, {
                 StockItemId: 0,                
-                Name: $scope.Name,
-                Description: $scope.Description,
-                MinimumLevel: $scope.MinimumLevel,
-                MaximumLevel: $scope.MaximumLevel,
-                LevelUnit: $scope.LevelUnit,
-                PricePerUnit: $scope.PricePerUnit,
-                Quantity: $scope.Quantity,
-                Temperature: $scope.Temperature                
+                Name: $scope.NameToAdd,
+                Description: $scope.DescriptionToAdd,
+                MinimumLevel: $scope.MinimumLevelToAdd,
+                MaximumLevel: $scope.MaximumLevelToAdd,
+                LevelUnit: $scope.LevelUnitToAdd,
+                PricePerUnit: $scope.PricePerUnitToAdd,
+                Quantity: $scope.QuantityToAdd,
+                Temperature: $scope.TemperatureToAdd                
             })
             .then(function (data, status) {
                 $scope.errorToAdd = null;
-                $scope.descToAdd = null;
+                $scope.stockItemIdToAdd = null;
+                $scope.NameToAdd = null;
+                $scope.DescriptionToAdd = null;
+                $scope.MinimumLevelToAdd = null;
+                $scope.MaximumLevelToAdd = null;
+                $scope.LevelUnitToAdd = null;
+                $scope.PricePerUnitToAdd = null;
+                $scope.QuantityToAdd = null;
+                $scope.TemperatureToAdd = null;
             },
             function (data, status) {
                 $scope.errorToAdd = errorMessage(data, status);
             })
         };
-        //$scope.putOne = function () {
-        //    $http.put(uri + '/' + $scope.idToUpdate, {
-        //        COMPLAINT_ID: $scope.idToUpdate,
-        //        CUSTOMER_ID: $scope.customerId,
-        //        DESCRIPTION: $scope.descToUpdate
-        //    })
-        //        .success(function (data, status) {
-        //            $scope.errorToUpdate = null;
-        //            $scope.idToUpdate = null;
-        //            $scope.descToUpdate = null;
-        //        })
-        //        .error(function (data, status) {
-        //            $scope.errorToUpdate = errorMessage(data, status);
-        //        })
-        //};
+
+        $scope.putOne = function () {
+            $http.put(uri + '/' + $scope.idToUpdate, {
+                StockItemId: $scope.stockItemIdToUpdate,
+                Name: $scope.NameToUpdate,
+                Description: $scope.DescriptionToUpdate,
+                MinimumLevel: $scope.MinimumLevelToUpdate,
+                MaximumLevel: $scope.MaximumLevelToUpdate,
+                LevelUnit: $scope.LevelUnitToUpdate,
+                PricePerUnit: $scope.PricePerUnitToUpdate,
+                Quantity: $scope.QuantityToUpdate,
+                Temperature: $scope.TemperatureToUpdate
+            })
+                .success(function (data, status) {
+                    $scope.errorToUpdate = null;
+                    $scope.stockItemIdToUpdate = null;
+                    $scope.NameToUpdate = null;
+                    $scope.DescriptionToUpdate = null;
+                    $scope.MinimumLevelToUpdate = null;
+                    $scope.MaximumLevelToUpdate = null;
+                    $scope.LevelUnitToUpdate = null;
+                    $scope.PricePerUnitToUpdate = null;
+                    $scope.QuantityToUpdate = null;
+                    $scope.TemperatureToUpdate = null;
+                })
+                .error(function (data, status) {
+                    $scope.errorToUpdate = errorMessage(data, status);
+                })
+        };
         //$scope.deleteOne = function (item) {
         //    $http.delete(uri + '/' + item.COMPLAINT_ID)
         //        .success(function (data, status) {
@@ -76,10 +99,18 @@
         //            $scope.errorToDelete = errorMessage(data, status);
         //        })
         //};
-        //$scope.editIt = function (item) {
-        //    $scope.idToUpdate = item.COMPLAINT_ID;
-        //    $scope.descToUpdate = item.DESCRIPTION;
-        //};
+        $scope.editIt = function (item) {
+            $scope.stockItemIdToUpdate = item.StockItemId;
+            $scope.NameToUpdate = item.Name;
+            $scope.DescriptionToUpdate = item.Description;
+            $scope.MinimumLevelToUpdate = item.MinimumLevel;
+            $scope.MaximumLevelToUpdate = item.MaximumLevel;
+            $scope.LevelUnitToUpdate = item.LevelUnit;
+            $scope.PricePerUnitToUpdate = item.PricePerUnit;
+            $scope.QuantityToUpdate = item.Quantity;
+            $scope.TemperatureToUpdate = item.Temperature;
+        };
+
         $scope.toShow = function () {
             return $scope.stockItems && $scope.stockItems.length > 0;
         };
@@ -100,15 +131,16 @@
         //        }
         //    }
         //}
-        //hub.client.updateItem = function (item) {
-        //    var array = $scope.complaints;
-        //    for (var i = array.length - 1; i >= 0; i--) {
-        //        if (array[i].COMPLAINT_ID === item.COMPLAINT_ID) {
-        //            array[i].DESCRIPTION = item.DESCRIPTION;
-        //            $scope.$apply();
-        //        }
-        //    }
-        //}
+
+        hub.client.updateItem = function (item) {
+            var array = $scope.complaints;
+            for (var i = array.length - 1; i >= 0; i--) {
+                if (array[i].COMPLAINT_ID === item.COMPLAINT_ID) {
+                    array[i].DESCRIPTION = item.DESCRIPTION;
+                    $scope.$apply();
+                }
+            }
+        }
 
         init();
 
