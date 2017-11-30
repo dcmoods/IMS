@@ -63,7 +63,7 @@
         };
 
         $scope.putOne = function () {
-            $http.put(uri + '/' + $scope.idToUpdate, {
+            $http.put(uri + '/' + $scope.stockItemIdToUpdate, {
                 StockItemId: $scope.stockItemIdToUpdate,
                 Name: $scope.NameToUpdate,
                 Description: $scope.DescriptionToUpdate,
@@ -74,7 +74,7 @@
                 Quantity: $scope.QuantityToUpdate,
                 Temperature: $scope.TemperatureToUpdate
             })
-                .success(function (data, status) {
+                .then(function (data, status) {
                     $scope.errorToUpdate = null;
                     $scope.stockItemIdToUpdate = null;
                     $scope.NameToUpdate = null;
@@ -85,8 +85,7 @@
                     $scope.PricePerUnitToUpdate = null;
                     $scope.QuantityToUpdate = null;
                     $scope.TemperatureToUpdate = null;
-                })
-                .error(function (data, status) {
+                }, function (data, status) {
                     $scope.errorToUpdate = errorMessage(data, status);
                 })
         };
@@ -142,9 +141,11 @@
             }
         }
 
-        init();
+        
 
-        $.connection.hub.start(); // connect to signalr hub
+        $.connection.hub.start().done(function(){
+            init();
+        }); // connect to signalr hub
     }]);
         
 })();
