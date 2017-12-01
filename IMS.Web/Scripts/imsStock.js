@@ -5,7 +5,7 @@
             return 'Error: ' + status +
                 (data.Message !== undefined ? (' ' + data.Message) : '');
         },
-        hub = $.connection.stockHub; // create a proxy to signalr hub on web server
+        hub = $.connection.imsStock; // create a proxy to signalr hub on web server
     
     app.controller('imsCtrl', ['$http', '$scope', function ($http, $scope) {
         $scope.stockItems = [];
@@ -72,7 +72,9 @@
                 LevelUnit: $scope.LevelUnitToUpdate,
                 PricePerUnit: $scope.PricePerUnitToUpdate,
                 Quantity: $scope.QuantityToUpdate,
-                Temperature: $scope.TemperatureToUpdate
+                Temperature: $scope.TemperatureToUpdate,
+                ReceivedDate: $scope.ReceivedDateToUpdate,
+                ExpirationDate: $scope.ExpirationDateToUpdate
             })
                 .then(function (data, status) {
                     $scope.errorToUpdate = null;
@@ -85,10 +87,13 @@
                     $scope.PricePerUnitToUpdate = null;
                     $scope.QuantityToUpdate = null;
                     $scope.TemperatureToUpdate = null;
+                    $scope.ReceivedDateToUpdate = null;
+                    $scope.ExpirationDateToUpdate = null;
                 }, function (data, status) {
                     $scope.errorToUpdate = errorMessage(data, status);
                 })
         };
+
         //$scope.deleteOne = function (item) {
         //    $http.delete(uri + '/' + item.COMPLAINT_ID)
         //        .success(function (data, status) {
@@ -98,6 +103,7 @@
         //            $scope.errorToDelete = errorMessage(data, status);
         //        })
         //};
+
         $scope.editIt = function (item) {
             $scope.stockItemIdToUpdate = item.StockItemId;
             $scope.NameToUpdate = item.Name;
@@ -108,6 +114,8 @@
             $scope.PricePerUnitToUpdate = item.PricePerUnit;
             $scope.QuantityToUpdate = item.Quantity;
             $scope.TemperatureToUpdate = item.Temperature;
+            $scope.ReceivedDateToUpdate = item.ReceivedDate;
+            $scope.ExpirationDateToUpdate = item.ExpirationDate;
         };
 
         $scope.toShow = function () {
@@ -118,7 +126,7 @@
 
         //signalr client functions
         hub.client.addItem = function (item) {
-            $scope.stockItems.push(item);
+            $scope.stockI tems.push(item);
             $scope.$apply(); // this is outside of angularjs, so need to apply
         }
         //hub.client.deleteItem = function (item) {
@@ -132,10 +140,19 @@
         //}
 
         hub.client.updateItem = function (item) {
-            var array = $scope.complaints;
+            var array = $scope.stockItems;
             for (var i = array.length - 1; i >= 0; i--) {
-                if (array[i].COMPLAINT_ID === item.COMPLAINT_ID) {
-                    array[i].DESCRIPTION = item.DESCRIPTION;
+                if (array[i].StockItemId === item.StockItemId) {
+                    array[i].Name = item.Name;
+                    array[i].Description = item.Description;
+                    array[i].MinimumLevel = item.MinimumLevel;
+                    array[i].MaximumLevel = item.MaximumLevel;
+                    array[i].LevelUnit = item.LevelUnit;
+                    array[i].PricePerUnit = item.PricePerUnit;
+                    array[i].Quantity = item.Quantity;
+                    array[i].Temperature = item.Temperature;
+                    array[i].ReceivedDate = item.ReceivedDate;
+                    array[i].ExpirationDate = item.ExpirationDate;
                     $scope.$apply();
                 }
             }

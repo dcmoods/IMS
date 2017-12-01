@@ -10,9 +10,12 @@ namespace IMS.Web.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
+        }
+
+        public ActionResult AllStockItems()
+        {
+            return PartialView("_Stock");
         }
     }
 }

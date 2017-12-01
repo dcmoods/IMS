@@ -22,22 +22,20 @@ namespace IMS.Web.Controllers
         private readonly GenericRepository<StockItem> _repository;
 
 
-        public StockItemsController()
+        public StockItemsController(GenericRepository<StockItem> repository)
         {
-            
+            _repository = repository;
         }
 
-        // GET: api/StockItems
-        public IQueryable<StockItem> GetStockItems()
+        public IEnumerable<StockItem> GetStockItems()
         {
-            return db.StockItems;
+            return _repository.All();
         }
 
-        // GET: api/StockItems/5
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult GetStockItem(int id)
         {
-            StockItem stockItem = db.StockItems.Find(id);
+            StockItem stockItem = _repository.FindByKey(id);
             if (stockItem == null)
             {
                 return NotFound();
@@ -46,8 +44,6 @@ namespace IMS.Web.Controllers
             return Ok(stockItem);
         }
 
-        // PUT: api/StockItems/5
-        [ResponseType(typeof(void))]
         public IHttpActionResult PutStockItem(int id, StockItem stockItem)
         {
             if (!ModelState.IsValid)
@@ -60,11 +56,11 @@ namespace IMS.Web.Controllers
                 return BadRequest();
             }
 
-            db.Entry(stockItem).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _repository.Update(stockItem);
+                Hub.Clients.Group("Restaurant").updateItem(stockItem);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -81,7 +77,6 @@ namespace IMS.Web.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/StockItems
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult PostStockItem(StockItem stockItem)
         {
@@ -93,17 +88,14 @@ namespace IMS.Web.Controllers
 
             stockItem.ReceivedDate = DateTime.Today;
             stockItem.ExpirationDate = DateTime.Today.AddDays(14);
-            
 
-            db.StockItems.Add(stockItem);
-            db.SaveChanges();
+            _repository.Insert(stockItem);
             
-            Hub.Clients.Group("Restaurant").addItem(stockItem); ;
+            Hub.Clients.Group("Restaurant").addItem(stockItem); 
 
             return CreatedAtRoute("DefaultApi", new { id = stockItem.StockItemId }, stockItem);
         }
 
-        // DELETE: api/StockItems/5
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult DeleteStockItem(int id)
         {
@@ -130,7 +122,7 @@ namespace IMS.Web.Controllers
 
         private bool StockItemExists(int id)
         {
-            return db.StockItems.Count(e => e.StockItemId == id) > 0;
+            return _repository.All().Count(e => e.StockItemId == id) > 0;
         }
     }
 }

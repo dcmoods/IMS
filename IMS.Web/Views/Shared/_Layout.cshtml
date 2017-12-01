@@ -6,9 +6,17 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    @Scripts.Render("~/bundles/angular")
+
+    <!-- BEGIN ANGULAR SCRIPTS -->
+    <script src="~/Scripts/app/app.js"></script>
+    <script src="~/Scripts/app/stock/StockController.js"></script>
+    <script src="~/Scripts/app/services/dataService.js"></script>
+    <!-- END ANGULAR SCRIPTS -->
+    <base href="/">
 </head>
-<body ng-app="imsApp" ng-controller="imsCtrl" ng-cloak>
+<body ng-app="app" ng-cloak>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -22,6 +30,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, null)</li>
+                    <li><a href="/#/stock">Stock Items</a></li>
                 </ul>
             </div>
         </div>
@@ -37,8 +46,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
     <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
     <script src="signalr/hubs"></script>
-    <script src="Scripts/imsStock.js"></script>
+    @*<script src="Scripts/imsStock.js"></script>*@
+    
 </body>
 </html>
