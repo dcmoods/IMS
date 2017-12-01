@@ -34,13 +34,12 @@
                 <td>{{stockItem.Quantity }}</td>
                 <td>{{stockItem.Temperature }}</td>
 
-                @*<td>
-                    <button ng-click="editIt
-                    (complaint)">
+                <td>
+                    <button ng-click="editIt(stockItem)">
                         Edit
                     </button>
                 </td>
-                <td>
+                @*<td>
                     <button ng-click="deleteOne
                     (complaint)">
                         Delete
@@ -54,14 +53,14 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Add Items</h2>
-        <input type="text" ng-model="Name" size="40" placeholder="Name" class="form-control" />
-        <input type="text" ng-model="Description" size="40" placeholder="Description" class="form-control" />
-        <input type="text" ng-model="MinimumLevel" size="40" placeholder="Min" class="form-control" />
-        <input type="text" ng-model="MaximumLevel" size="40" placeholder="Max" class="form-control" />
-        <input type="text" ng-model="LevelUnit" size="40" placeholder="Unit" class="form-control" />
-        <input type="text" ng-model="PricePerUnit" size="40" placeholder="Price/Unit" class="form-control" />
-        <input type="text" ng-model="Quantity" size="40" placeholder="Quantity" class="form-control" />
-        <input type="text" ng-model="Temperature" size="40" placeholder="Temp" class="form-control" />
+        <input type="text" ng-model="NameToAdd" size="40" placeholder="Name" class="form-control" />
+        <input type="text" ng-model="DescriptionToAdd" size="40" placeholder="Description" class="form-control" />
+        <input type="text" ng-model="MinimumLevelToAdd" size="40" placeholder="Min" class="form-control" />
+        <input type="text" ng-model="MaximumLevelToAdd" size="40" placeholder="Max" class="form-control" />
+        <input type="text" ng-model="LevelUnitToAdd" size="40" placeholder="Unit" class="form-control" />
+        <input type="text" ng-model="PricePerUnitToAdd" size="40" placeholder="Price/Unit" class="form-control" />
+        <input type="text" ng-model="QuantityToAdd" size="40" placeholder="Quantity" class="form-control" />
+        <input type="text" ng-model="TemperatureToAdd" size="40" placeholder="Temp" class="form-control" />
         <input type="button" value="Add" ng-click="postOne();" class="btn btn-success"/>
         <p ng-show="errorToAdd">{{errorToAdd}}</p>
     </div>
@@ -75,3 +74,21 @@
     <input type="button" value="Save" ng-click="putOne();" />
     <p ng-show="errorToUpdate">{{errorToAdd}}</p>
 </div>*@
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <h2>Edit Item: {{stockItemIdToUpdate}}</h2>
+            <input type="text" ng-model="NameToUpdate" size="40" placeholder="Name" class="form-control" />
+            <input type="text" ng-model="DescriptionToUpdate" size="40" placeholder="Description" class="form-control" />
+            <input type="text" ng-model="MinimumLevelToUpdate" size="40" placeholder="Min" class="form-control" />
+            <input type="text" ng-model="MaximumLevelToUpdate" size="40" placeholder="Max" class="form-control" />
+            <input type="text" ng-model="LevelUnitToUpdate" size="40" placeholder="Unit" class="form-control" />
+            <input type="text" ng-model="PricePerUnitToUpdate" size="40" placeholder="Price/Unit" class="form-control" />
+            <input type="text" ng-model="QuantityToUpdate" size="40" placeholder="Quantity" class="form-control" />
+            <input type="text" ng-model="TemperatureToUpdate" size="40" placeholder="Temp" class="form-control" />
+            <input type="button" value="Save" ng-click="putOne();" class="btn btn-success" />
+            <p ng-show="errorToUpdate">{{errorToAdd}}</p>
+        </div>
+    </div>
+</div>
