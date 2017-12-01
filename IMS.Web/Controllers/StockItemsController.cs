@@ -11,12 +11,21 @@ using System.Web.Http.Description;
 using Stock.Data;
 using Stock.Domain;
 using IMS.Web.Hubs;
+using SharedKernel.Data;
 
 namespace IMS.Web.Controllers
 {
     public class StockItemsController : BaseApiControllerWithHub<StockHub>
     {
         private StockContext db = new StockContext();
+
+        private readonly GenericRepository<StockItem> _repository;
+
+
+        public StockItemsController()
+        {
+            
+        }
 
         // GET: api/StockItems
         public IQueryable<StockItem> GetStockItems()
@@ -88,9 +97,8 @@ namespace IMS.Web.Controllers
 
             db.StockItems.Add(stockItem);
             db.SaveChanges();
-
-            var subscribed = Hub.Clients.Group("Restaurant");
-            subscribed.addItem(stockItem);
+            
+            Hub.Clients.Group("Restaurant").addItem(stockItem); ;
 
             return CreatedAtRoute("DefaultApi", new { id = stockItem.StockItemId }, stockItem);
         }

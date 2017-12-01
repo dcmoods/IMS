@@ -11,6 +11,7 @@ namespace Stock.Data.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Stock.Data.StockContext context)

@@ -5,9 +5,10 @@
             return 'Error: ' + status +
                 (data.Message !== undefined ? (' ' + data.Message) : '');
         },
-        hub = $.connection.stockHub; // create a proxy to signalr hub on web server
+        hub = $.connection.imsStock; // create a proxy to signalr hub on web server
     
     app.controller('imsCtrl', ['$http', '$scope', function ($http, $scope) {
+        
         $scope.stockItems = [];
         $scope.customerIdSubscribed;
 
@@ -15,17 +16,8 @@
             $http.get(uri)
                 .then(function (data, status) {
                     $scope.stockItems = data.data;
-                    console.log(data.data);
-                    
-                    //if ($scope.customerIdSubscribed &&
-                    //    $scope.customerIdSubscribed.length > 0 &&
-                    //    $scope.customerIdSubscribed !== $scope.customerId) {
-                    //    // unsubscribe to stop to get notifications for old customer
-                    //    hub.server.unsubscribe($scope.customerIdSubscribed);
-                    //}
-                    // subscribe to start to get notifications for new customer
                     hub.server.subscribe();
-                    //$scope.customerIdSubscribed = $scope.customerId;
+                    
                 },
                 (function (data, status) {
                     $scope.stockItems = [];
@@ -45,8 +37,7 @@
                 Temperature: $scope.Temperature                
             })
             .then(function (data, status) {
-                $scope.errorToAdd = null;
-                $scope.descToAdd = null;
+                $scope.errorToAdd = null;                
             },
             function (data, status) {
                 $scope.errorToAdd = errorMessage(data, status);
@@ -110,9 +101,11 @@
         //    }
         //}
 
-        init();
-
-        $.connection.hub.start(); // connect to signalr hub
+        
+        $.connection.hub.start().done(function () {
+            init();
+        }); // connect to signalr hub
+        
     }]);
         
 })();
