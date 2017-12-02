@@ -24,7 +24,7 @@
 
         //get stock item by id
         function getStockItemById(stockItemId) {
-            return $http.get('api/stockitems' + stockItemId)
+            return $http.get('api/stockitems/' + stockItemId)
                 .then(sendResponseData)
                 .catch(sendGetErrors);
         }
@@ -39,7 +39,11 @@
 
         //Add stock item and callbacks
         function addStockItem(stockItem) {
-            return $http.post('api/stockitems' + stockItem)
+            return $http({
+                method: 'POST',
+                url: 'api/stockitems',
+                data: stockItem
+            })
                 .then(addStockItemSuccess)
                 .catch(addStockItemError)
         }
@@ -54,7 +58,7 @@
 
         //Update stock item and callbacks
         function updateStockItem(stockItem) {
-            return $http.put('api/stockitems' + stockItem.StockItemId, stockItem)
+            return $http.put('api/stockitems/' + stockItem.StockItemId, stockItem)
                 .then(updateStockItemSuccess)
                 .catch(updateStockItemError);
         }
@@ -69,7 +73,7 @@
 
         //Delete stock item and callbacks
         function deleteStockItem(stockItemId) {
-            return $http.delete('api/stockitems' + StockItemId)
+            return $http.delete('api/stockitems/' + stockItemId)
                 .then(deleteStockItemSuccess)
                 .catch(deleteStockItemError);
         }

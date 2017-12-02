@@ -7,7 +7,8 @@ namespace Stock.Domain
 {
     public class StockItem
     {
-        private ICollection<ItemEntry> _itemEntries;
+
+        private readonly List<ItemEntry> _itemEntries;
 
         public StockItem()
         {
@@ -30,9 +31,13 @@ namespace Stock.Domain
             get { return _itemEntries; }
         }
 
-        public void CreateItemEntry(double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
+
+        public void AddItemEntries(List<ItemEntry> itemEntries)
         {
-            _itemEntries.Add(ItemEntry.Create(this.StockItemId, quantity, pricePerUnit, expirationDate, temperature));
+            foreach(ItemEntry item in itemEntries)
+            {
+                _itemEntries.Add(item);
+            }
         }
 
         public double TotalOnHand
@@ -43,12 +48,18 @@ namespace Stock.Domain
             }
         }
 
-        public decimal StockItemTotalValuation
+        public decimal TotalValuation
         {
             get
             {
                 return _itemEntries.Sum(s => s.PricePerUnit * Convert.ToDecimal(s.Quantity));
             }
+        }
+
+        public ItemEntry UseStockItem()
+        {
+            var soonestExpirationDate = _itemEntries.Select(ie => ie.ExpirationDate).Min();
+            return _itemEntries.FirstOrDefault(ie => ie.ExpirationDate == soonestExpirationDate);
         }
 
     }

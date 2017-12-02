@@ -7,7 +7,6 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace IMS.Web.Hubs
 {
-    [HubName("imsStock")]
     public class StockHub : Hub
     {
 
@@ -20,15 +19,6 @@ namespace IMS.Web.Hubs
         {
             Groups.Remove(Context.ConnectionId, "Restaurant");
         }
-
-        public void Subscribe(string customerId)
-        {
-            Groups.Add(Context.ConnectionId, customerId);
-        }
-
-        public void Unsubscribe(string customerId)
-        {
-            Groups.Remove(Context.ConnectionId, customerId);
-        }
+        
     }
 }

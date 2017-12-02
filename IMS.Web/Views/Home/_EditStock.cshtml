@@ -1,0 +1,36 @@
+﻿<form class="form" role="form">
+    <h2>Edit Stock Item {{editStock.stockItem.StockItemId}}</h2>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">Name</label>
+            <input type="text" ng-model="editStock.stockItem.Name" placeholder="Name" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Description</label>
+            <input type="text" ng-model="editStock.stockItem.Description" placeholder="Description" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Min Level</label>
+            <input type="text" ng-model="editStock.stockItem.MinimumLevel" placeholder="Min" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Max Level</label>
+            <input type="text" ng-model="editStock.stockItem.MaximumLevel" placeholder="Max" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Unit</label>
+            <input type="text" ng-model="editStock.stockItem.LevelUnit" placeholder="Unit" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="Save" ng-click="editStock.saveStockItem();" class="btn btn-success" />
+        </div>
+
+        <div>{{editStock.error}}</div>
+    </div>
+</form>
+

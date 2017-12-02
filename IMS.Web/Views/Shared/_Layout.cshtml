@@ -10,8 +10,12 @@
 
     <!-- BEGIN ANGULAR SCRIPTS -->
     <script src="~/Scripts/app/app.js"></script>
-    <script src="~/Scripts/app/stock/StockController.js"></script>
+    <script src="~/Scripts/app/services/constantService.js"></script>
     <script src="~/Scripts/app/services/dataService.js"></script>
+    <script src="~/Scripts/app/services/signalRService.js"></script>
+    <script src="~/Scripts/app/stock/StockController.js"></script>
+    <script src="~/Scripts/app/stock/AddStockController.js"></script>
+    <script src="~/Scripts/app/stock/EditStockController.js"></script>
     <!-- END ANGULAR SCRIPTS -->
     <base href="/">
 </head>
@@ -49,7 +53,7 @@
 
     <script src="Scripts/jquery.signalR-2.1.2.min.js"></script>
     <script src="signalr/hubs"></script>
-    @*<script src="Scripts/imsStock.js"></script>*@
+    @*<script src="Scripts/stockHub.js"></script>*@
     
 </body>
 </html>

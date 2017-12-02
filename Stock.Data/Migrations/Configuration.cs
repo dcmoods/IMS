@@ -35,8 +35,17 @@ namespace Stock.Data.Migrations
                 MinimumLevel = 5,
                 MaximumLevel = 40,
                 LevelUnit = "Lbs",
+
             };
-            stockItem1.CreateItemEntry(15, 3.50m, DateTime.Now.AddDays(14));
+
+            List<ItemEntry> itemEntries = new List<ItemEntry>()
+                {
+                    ItemEntry.Create(15, 3.50m, DateTime.Now.AddDays(14)),
+                    ItemEntry.Create(20, 2.50m, DateTime.Now.AddDays(14))
+                };
+
+            stockItem1.AddItemEntries(itemEntries);            
+            
 
             var stockItem2 = new StockItem()
             {
@@ -48,7 +57,14 @@ namespace Stock.Data.Migrations
                 LevelUnit = "Lbs",
 
             };
-            stockItem2.CreateItemEntry(15, 3.00m, DateTime.Now.AddDays(14));
+
+            itemEntries = new List<ItemEntry>()
+            {
+                ItemEntry.Create(15, 3.00m, DateTime.Now.AddDays(14)),
+                ItemEntry.Create(12, 2.00m, DateTime.Now.AddDays(14))
+            };
+
+            stockItem2.AddItemEntries(itemEntries);
 
             var stockItem3 = new StockItem()
             {
@@ -59,7 +75,9 @@ namespace Stock.Data.Migrations
                 MaximumLevel = 20,
                 LevelUnit = "Gallons",
             };
-            stockItem3.CreateItemEntry(10, 4.00m, DateTime.Now.AddDays(20), "28f");
+
+            stockItem3.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(10, 4.00m, DateTime.Now.AddDays(20), "28f") });
+
 
             var stockItem4 = new StockItem()
             {
@@ -70,7 +88,10 @@ namespace Stock.Data.Migrations
                 MaximumLevel = 100,
                 LevelUnit = "Lbs",
             };
-            stockItem4.CreateItemEntry(88, 1.98m, DateTime.Now.AddDays(7), "32f");
+
+            stockItem4.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(88, 1.98m, DateTime.Now.AddDays(7), "32f") });
+
+            
             context.StockItems.AddOrUpdate(s => s.StockItemId, 
                     stockItem1, 
                     stockItem2,

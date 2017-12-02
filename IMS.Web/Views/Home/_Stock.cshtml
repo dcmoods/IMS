@@ -1,96 +1,67 @@
 ﻿<div >
-
-
     <div>
         <h2>Stock Items</h2>
     </div>
 
+
     <div class="row">
         <div class="col-md-12">
 
-
+            <a href="/#/stock/new">Add Stock Item</a>
             <div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Edit</th>
                             <th>Item id</th>
                             <th>Name</th>
                             <th>Description</th>
+                            <th>Total Quantity</th>
+                            <th>Valuation</th>
                             <th>Min-Level</th>
                             <th>Max-Level</th>
-                            <th>Unit</th>
-                            <th>Price/Unit</th>
-                            <th>Received</th>
-                            <th>Expiration</th>
-                            <th>Quantity</th>
-                            <th>Temp</th>
+                            <th>Unit Type</th>
+                            <th>Items On Hand</th>
                         </tr>
                     </thead>
                     <tbody ng-repeat="stockItem in vm.stockItems">
 
                         <tr>
+                            <td><a href="/#/stock/edit/{{stockItem.StockItemId}}">Edit</a></td>
                             <td>{{stockItem.StockItemId }}</td>
                             <td>{{stockItem.Name }}</td>
                             <td>{{stockItem.Description }}</td>
+                            <td>{{stockItem.TotalOnHand }}</td>
+                            <td>{{stockItem.TotalValuation }}</td>
                             <td>{{stockItem.MinimumLevel }}</td>
                             <td>{{stockItem.MaximumLevel }}</td>
                             <td>{{stockItem.LevelUnit }}</td>
-                            <td>{{stockItem.PricePerUnit }}</td>
-                            <td>{{stockItem.ReceivedDate | date:'shortDate' }}</td>
-                            <td>{{stockItem.ExpirationDate | date:'shortDate' }}</td>
-                            <td>{{stockItem.Quantity }}</td>
-                            <td>{{stockItem.Temperature }}</td>
-                            @*<td>
-                                <button ng-click="editIt(stockItem)">
-                                    Edit
-                                </button>
-                            </td>*@
+                            <td >
+                                <table class="table table-bordered table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Quantity</th>
+                                            <th>Price/Unit</th>
+                                            <th>Received</th>
+                                            <th>Expiration</th>
+                                            <th>Temp.</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in stockItem.ItemEntries">
+                                            <td>{{item.Quantity }}</td>
+                                            <td>{{item.PricePerUnit }}</td>
+                                            <td>{{item.ReceivedDate | date:'shortDate' }}</td>
+                                            <td>{{item.ExpirationDate | date:'shortDate' }}</td>
+                                            <td>{{item.Temperature }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
-                        <tr ng-repeat="item in stockItem.ItemEntries">
-                            <td>{{item.ItemEntryId}}</td>
-                            <td>{{item.Quantity}}</td>
-                            <td>{{item.PricePerUnit}}</td>
-                            <td>{{item.ReceivedDate}}</td>
-                            <td>{{item.ExpirationDate}}</td>
-                        </tr>
-                        
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Add Items</h2>
-            <input type="text" ng-model="NameToAdd" size="40" placeholder="Name" class="form-control" />
-            <input type="text" ng-model="DescriptionToAdd" size="40" placeholder="Description" class="form-control" />
-            <input type="text" ng-model="MinimumLevelToAdd" size="40" placeholder="Min" class="form-control" />
-            <input type="text" ng-model="MaximumLevelToAdd" size="40" placeholder="Max" class="form-control" />
-            <input type="text" ng-model="LevelUnitToAdd" size="40" placeholder="Unit" class="form-control" />
-            <input type="text" ng-model="PricePerUnitToAdd" size="40" placeholder="Price/Unit" class="form-control" />
-            <input type="text" ng-model="QuantityToAdd" size="40" placeholder="Quantity" class="form-control" />
-            <input type="text" ng-model="TemperatureToAdd" size="40" placeholder="Temp" class="form-control" />
-            <input type="button" value="Add" ng-click="postOne();" class="btn btn-success" />
-            <p ng-show="errorToAdd">{{errorToAdd}}</p>
-        </div>
-
-        <div class="col-md-4">
-            <h2>Edit Item: {{stockItemIdToUpdate}}</h2>
-            <input type="hidden" ng-model="ReceivedDateToUpdate" />
-            <input type="hidden" ng-model="ExpirationDateToUpdate" />
-            <input type="text" ng-model="NameToUpdate" size="40" placeholder="Name" class="form-control" />
-            <input type="text" ng-model="DescriptionToUpdate" size="40" placeholder="Description" class="form-control" />
-            <input type="text" ng-model="MinimumLevelToUpdate" size="40" placeholder="Min" class="form-control" />
-            <input type="text" ng-model="MaximumLevelToUpdate" size="40" placeholder="Max" class="form-control" />
-            <input type="text" ng-model="LevelUnitToUpdate" size="40" placeholder="Unit" class="form-control" />
-            <input type="text" ng-model="PricePerUnitToUpdate" size="40" placeholder="Price/Unit" class="form-control" />
-            <input type="text" ng-model="QuantityToUpdate" size="40" placeholder="Quantity" class="form-control" />
-            <input type="text" ng-model="TemperatureToUpdate" size="40" placeholder="Temp" class="form-control" />
-            <input type="button" value="Save" ng-click="putOne();" class="btn btn-success" />
-            <p ng-show="errorToUpdate">{{errorToAdd}}</p>
-        </div>
-    </div>
-
-
 </div>

@@ -17,5 +17,15 @@ namespace IMS.Web.Controllers
         {
             return PartialView("_Stock");
         }
+
+        public ActionResult AddStockItem()
+        {
+            return PartialView("_AddStock");
+        }
+
+        public ActionResult EditStockItem()
+        {
+            return PartialView("_EditStock");
+        }
     }
 }

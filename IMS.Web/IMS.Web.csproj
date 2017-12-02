@@ -345,7 +345,11 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\app.js" />
+    <Content Include="Scripts\app\services\constantService.js" />
     <Content Include="Scripts\app\services\dataService.js" />
+    <Content Include="Scripts\app\services\signalRService.js" />
+    <Content Include="Scripts\app\stock\AddStockController.js" />
+    <Content Include="Scripts\app\stock\EditStockController.js" />
     <Content Include="Scripts\app\stock\StockController.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -406,6 +410,8 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\_Stock.cshtml" />
+    <Content Include="Views\Home\_AddStock.cshtml" />
+    <Content Include="Views\Home\_EditStock.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Order.Data\Order.Data.csproj">
