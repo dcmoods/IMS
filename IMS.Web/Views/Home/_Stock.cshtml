@@ -26,8 +26,9 @@
                             <th>Temp</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr ng-repeat="stockItem in vm.stockItems">
+                    <tbody ng-repeat="stockItem in vm.stockItems">
+
+                        <tr>
                             <td>{{stockItem.StockItemId }}</td>
                             <td>{{stockItem.Name }}</td>
                             <td>{{stockItem.Description }}</td>
@@ -39,19 +40,20 @@
                             <td>{{stockItem.ExpirationDate | date:'shortDate' }}</td>
                             <td>{{stockItem.Quantity }}</td>
                             <td>{{stockItem.Temperature }}</td>
-
-                            <td>
+                            @*<td>
                                 <button ng-click="editIt(stockItem)">
                                     Edit
                                 </button>
-                            </td>
-                            @*<td>
-                                    <button ng-click="deleteOne
-                                    (complaint)">
-                                        Delete
-                                    </button>
-                                </td>*@
+                            </td>*@
                         </tr>
+                        <tr ng-repeat="item in stockItem.ItemEntries">
+                            <td>{{item.ItemEntryId}}</td>
+                            <td>{{item.Quantity}}</td>
+                            <td>{{item.PricePerUnit}}</td>
+                            <td>{{item.ReceivedDate}}</td>
+                            <td>{{item.ExpirationDate}}</td>
+                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

@@ -9,7 +9,7 @@ namespace Stock.Domain
     public class ItemEntry
     {
         
-
+        //Factory method used to create new ItemEntries
         public static ItemEntry Create(int stockItemId, double quantity, 
                                     decimal pricePerUnit, DateTime expirationDate, string temperature = "")
         {
@@ -24,6 +24,12 @@ namespace Stock.Domain
             ExpirationDate = expirationDate;
             PricePerUnit = pricePerUnit;
             Temperature = temperature;
+        }
+
+        //Icluded to help with ORM
+        //entity framework requires a public constructor for navigation properites. 
+        public ItemEntry()
+        {
         }
 
         public int ItemEntryId { get; set; }

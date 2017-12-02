@@ -13,7 +13,12 @@ namespace Order.Domain
         {
             return new LineItem(invoiceId, stockId, quantity, pricePerUnit);
         }
-
+        
+        //Icluded to help with ORM
+        //entity framework requires a public constructor for navigation properites. 
+        public LineItem()
+        {
+        }
 
         private LineItem(int invoiceId, int stockItemId, double? quantity, decimal? pricePerUnit)
         {

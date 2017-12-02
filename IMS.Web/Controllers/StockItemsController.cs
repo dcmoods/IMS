@@ -29,7 +29,7 @@ namespace IMS.Web.Controllers
 
         public IEnumerable<StockItem> GetStockItems()
         {
-            return _repository.All();
+            return _repository.AllInclude(si => si.ItemEntries);
         }
 
         [ResponseType(typeof(StockItem))]
