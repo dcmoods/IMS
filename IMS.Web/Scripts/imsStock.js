@@ -126,7 +126,7 @@
 
         //signalr client functions
         hub.client.addItem = function (item) {
-            $scope.stockI tems.push(item);
+            $scope.stockItems.push(item);
             $scope.$apply(); // this is outside of angularjs, so need to apply
         }
         //hub.client.deleteItem = function (item) {

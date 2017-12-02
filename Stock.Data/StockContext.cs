@@ -11,9 +11,8 @@ namespace Stock.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
-        public DbSet<InvoiceItem> InvoiceItems { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
+        public DbSet<ItemEntry> ItemEntries { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -2,6 +2,7 @@ namespace Stock.Data.Migrations
 {
     using Stock.Domain;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -26,60 +27,56 @@ namespace Stock.Data.Migrations
                 new Category() { Name = "Frozen" },
                 new Category() { Name = "Cool" });
 
-            context.StockItems.AddOrUpdate(s => s.StockItemId,
-                new StockItem()
-                {
-                    Category = context.Categories.SingleOrDefault(c => c.CategoryId == 1),
-                    Name = "White Rice",
-                    Description = "White rice for pilaf",
-                    MinimumLevel = 5,
-                    MaximumLevel = 40,
-                    LevelUnit = "Lbs",
-                    Quantity = 30,
-                    PricePerUnit = 1.33m,
-                    ReceivedDate = DateTime.Today,
-                    ExpirationDate = DateTime.Today.AddDays(14),
-                },
-                new StockItem()
-                {
-                    Category = context.Categories.SingleOrDefault(c => c.CategoryId == 1),
-                    Name = "Brown Rice",
-                    Description = "Brown rice for healthy foods",
-                    MinimumLevel = 5,
-                    MaximumLevel = 40,
-                    LevelUnit = "Lbs",
-                    Quantity = 30,
-                    PricePerUnit = 1.33m,
-                    ReceivedDate = DateTime.Today,
-                    ExpirationDate = DateTime.Today.AddDays(14),
-                },
-                new StockItem()
-                {
-                    Category = context.Categories.SingleOrDefault(c => c.CategoryId == 2),
-                    Name = "Vanilla Ice cream",
-                    Description = "",
-                    MinimumLevel = 5,
-                    MaximumLevel = 20,
-                    LevelUnit = "Gallons",
-                    Quantity = 15,
-                    PricePerUnit = 5.02m,
-                    ReceivedDate = DateTime.Today,
-                    ExpirationDate = DateTime.Today.AddDays(20)
-                },
-                new StockItem()
-                {
-                    Category = context.Categories.SingleOrDefault(c => c.CategoryId == 3),
-                    Name = "Chicken Breast",
-                    Description = "Chicken breast must be properly handled",
-                    MinimumLevel = 25,
-                    MaximumLevel = 100,
-                    LevelUnit = "Lbs",
-                    Quantity = 44,
-                    PricePerUnit = 1.89m,
-                    ReceivedDate = DateTime.Today,
-                    ExpirationDate = DateTime.Today.AddDays(7),
-                    Temperature = 40
-                });
+            var stockItem1 = new StockItem()
+            {
+                Category = context.Categories.SingleOrDefault(c => c.CategoryId == 1),
+                Name = "White Rice",
+                Description = "White rice for pilaf",
+                MinimumLevel = 5,
+                MaximumLevel = 40,
+                LevelUnit = "Lbs",
+            };
+            stockItem1.CreateItemEntry(15, 3.50m, DateTime.Now.AddDays(14));
+
+            var stockItem2 = new StockItem()
+            {
+                Category = context.Categories.SingleOrDefault(c => c.CategoryId == 1),
+                Name = "Brown Rice",
+                Description = "Brown rice for healthy foods",
+                MinimumLevel = 5,
+                MaximumLevel = 40,
+                LevelUnit = "Lbs",
+
+            };
+            stockItem2.CreateItemEntry(15, 3.00m, DateTime.Now.AddDays(14));
+
+            var stockItem3 = new StockItem()
+            {
+                Category = context.Categories.SingleOrDefault(c => c.CategoryId == 2),
+                Name = "Vanilla Ice cream",
+                Description = "",
+                MinimumLevel = 5,
+                MaximumLevel = 20,
+                LevelUnit = "Gallons",
+            };
+            stockItem3.CreateItemEntry(10, 4.00m, DateTime.Now.AddDays(20), "28f");
+
+            var stockItem4 = new StockItem()
+            {
+                Category = context.Categories.SingleOrDefault(c => c.CategoryId == 3),
+                Name = "Chicken Breast",
+                Description = "Chicken breast must be properly handled",
+                MinimumLevel = 25,
+                MaximumLevel = 100,
+                LevelUnit = "Lbs",
+            };
+            stockItem4.CreateItemEntry(88, 1.98m, DateTime.Now.AddDays(7), "32f");
+            context.StockItems.AddOrUpdate(s => s.StockItemId, 
+                    stockItem1, 
+                    stockItem2,
+                    stockItem3,
+                    stockItem4
+                );
         }
     }
 }

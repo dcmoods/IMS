@@ -69,6 +69,14 @@
     <Compile Include="Migrations\201711251637108_stock_update.Designer.cs">
       <DependentUpon>201711251637108_stock_update.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712020137250_si_changes.cs" />
+    <Compile Include="Migrations\201712020137250_si_changes.Designer.cs">
+      <DependentUpon>201712020137250_si_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712020205553_si_update_2.cs" />
+    <Compile Include="Migrations\201712020205553_si_update_2.Designer.cs">
+      <DependentUpon>201712020205553_si_update_2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,6 +105,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711251637108_stock_update.resx">
       <DependentUpon>201711251637108_stock_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712020137250_si_changes.resx">
+      <DependentUpon>201712020137250_si_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712020205553_si_update_2.resx">
+      <DependentUpon>201712020205553_si_update_2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

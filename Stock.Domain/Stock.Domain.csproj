@@ -87,8 +87,7 @@
   <ItemGroup>
     <Compile Include="Category.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="Invoice.cs" />
-    <Compile Include="InvoiceItem.cs" />
+    <Compile Include="ItemEntry.cs" />
     <Compile Include="StockItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

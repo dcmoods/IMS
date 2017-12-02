@@ -86,8 +86,8 @@ namespace IMS.Web.Controllers
                 return BadRequest(ModelState);
             }
 
-            stockItem.ReceivedDate = DateTime.Today;
-            stockItem.ExpirationDate = DateTime.Today.AddDays(14);
+            //stockItem.ReceivedDate = DateTime.Today;
+            //stockItem.ExpirationDate = DateTime.Today.AddDays(14);
 
             _repository.Insert(stockItem);
             
