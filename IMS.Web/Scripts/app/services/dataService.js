@@ -14,6 +14,7 @@
             updateStockItem: updateStockItem,
             deleteStockItem: deleteStockItem,
             insertItemEntry: insertItemEntry,
+            useStockItem: useStockItem,
             getCategories: getCategories
         };
 
@@ -88,8 +89,24 @@
             $q.reject('Error deleting item. (HTTP status: ' + response.status + ')');
         }
 
+
+        function useStockItem(stockItemId) {
+            return $http.post('api/stockitems/useStockItem/' + stockItemId)
+                .then(useStockItemSuccess)
+                .catch(useStockItemError);
+        }
+
+        function useStockItemSuccess(response) {
+            return response.data;
+        }
+
+        function useStockItemError(response) {
+            $q.reject('Error using item. (HTTP status: ' + response.status + ')');
+        }
+
+
         function insertItemEntry(item) {
-            return $http.put('api/stockitems/addItemEntry/' + item.StockItemId, item)
+            return $http.post('api/stockitems/addItemEntry/' + item.StockItemId  ,  item)
                .then(updateStockItemSuccess)
                .catch(updateStockItemError);
         }

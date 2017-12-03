@@ -19,6 +19,7 @@ namespace IMS.Web.Controllers
     {
         private StockContext db = new StockContext();
 
+        //TODO REMOVE StockConext and GenericRepo
         private readonly GenericRepository<StockItem> _repository;
         private readonly StockItemsData _stockRepo;
 
@@ -111,8 +112,44 @@ namespace IMS.Web.Controllers
             return Ok(stockItem);
         }
 
-        [HttpPut]
         public IHttpActionResult AddItemEntry(int id, ItemEntry item)
+        {
+            if (id != item.StockItemId)
+            {
+                return BadRequest();
+            }
+
+            var stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
+            if (stockItem == null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+
+                stockItem.InsertNewItemEntry(item.Quantity, item.PricePerUnit, item.ExpirationDate, item.Temperature);
+                _stockRepo.UpdateItemsForExistingStock(stockItem);
+
+                Hub.Clients.Group("Restaurant").addItemEntry(item);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!StockItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+        public IHttpActionResult UseStockItem(int id)
         {
 
             var stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
@@ -121,13 +158,18 @@ namespace IMS.Web.Controllers
                 return NotFound();
             }
 
-            if (id != stockItem.StockItemId)
+            try
             {
-                return BadRequest();
-            }
+                stockItem.UseStockItem();
+                _stockRepo.UpdateItemsForExistingStock(stockItem);
 
-            stockItem.InsertNewItemEntry(item.Quantity, item.PricePerUnit, item.ExpirationDate, item.Temperature);
-            _stockRepo.UpdateItemsForExistingStock(stockItem);
+                Hub.Clients.Group("Restaurant").updateItem(stockItem);
+            }
+            catch (Exception)
+            {
+
+                return NotFound();
+            }
 
             return StatusCode(HttpStatusCode.NoContent);
         }

@@ -1,50 +1,95 @@
-﻿<h1>{{stockItem.stockItem.StockItemId}}</h1>
-<table class="table table-bordered table-condensed">
-    <thead>
-        <tr>
-            <th>Quantity</th>
-            <th>Price/Unit</th>
-            <th>Received</th>
-            <th>Expiration</th>
-            <th>Temp.</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="item in stockItem.stockItem.ItemEntries">
-            <td>{{item.Quantity }}</td>
-            <td>{{item.PricePerUnit }}</td>
-            <td>{{item.ReceivedDate | date:'shortDate' }}</td>
-            <td>{{item.ExpirationDate | date:'shortDate' }}</td>
-            <td>{{item.Temperature }}</td>
-        </tr>
-    </tbody>
-</table>
-<form  class="form" role="form">
-    <div class="col-md-4">
-        <div class="form-group">
-            <label class="control-label">Quantity</label>
-            <input type="text" ng-model="stockItem.newItemEntry.Quantity" placeholder="Name" class="form-control" />
-        </div>
+﻿
 
-        <div class="form-group">
-            <label class="control-label">Price/Unit</label>
-            <input type="text" ng-model="stockItem.newItemEntry.PricePerUnit" placeholder="Description" class="form-control" />
-        </div>
+<div class="row">
+    <div class="col-md-6">
+        <fieldset>
+            <legend>Stock Item Info</legend>
 
-        <div class="form-group">
-            <label class="control-label">Expiration Date</label>
-            <input type="date" ng-model="stockItem.newItemEntry.ExpirationDate" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <label class="control-label">Temp</label>
-            <input type="text" ng-model="stockItem.newItemEntry.Temperature" placeholder="Max" class="form-control" />
-        </div>
-
-        <div class="form-group">
-            <input type="button" value="Add" ng-click="stockItem.saveStockItem();" class="btn btn-success" />
-        </div>
-
-        <div>{{stockItem.error}}</div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Total Quantity</th>
+                        <th>Valuation</th>
+                        <th>Min-Level</th>
+                        <th>Max-Level</th>
+                        <th>Unit Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{stockItem.stockItem.StockItemId }}</td>
+                        <td>{{stockItem.stockItem.Name }}</td>
+                        <td>{{stockItem.stockItem.TotalOnHand }}</td>
+                        <td>{{stockItem.stockItem.TotalValuation }}</td>
+                        <td>{{stockItem.stockItem.MinimumLevel }}</td>
+                        <td>{{stockItem.stockItem.MaximumLevel }}</td>
+                        <td>{{stockItem.stockItem.LevelUnit }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </fieldset>
     </div>
-</form>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <fieldset>
+            <legend>Item Entries</legend>
+            <table class="table table-bordered table-condensed">
+                <thead>
+                    <tr>
+                        <th>Quantity</th>
+                        <th>Price/Unit</th>
+                        <th>Received</th>
+                        <th>Expiration</th>
+                        <th>Temp.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in stockItem.stockItem.ItemEntries">
+                        <td>{{item.Quantity }}</td>
+                        <td>{{item.PricePerUnit }}</td>
+                        <td>{{item.ReceivedDate | date:'shortDate' }}</td>
+                        <td>{{item.ExpirationDate | date:'shortDate' }}</td>
+                        <td>{{item.Temperature }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </fieldset>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <form class="form" role="form">
+            <div class="form-group">
+                <label class="control-label">Quantity</label>
+                <input type="text" ng-model="stockItem.newItemEntry.Quantity" placeholder="Quantity" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Price/Unit</label>
+                <input type="text" ng-model="stockItem.newItemEntry.PricePerUnit" placeholder="Price" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Expiration Date</label>
+                <input type="date" ng-model="stockItem.newItemEntry.ExpirationDate" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Temp</label>
+                <input type="text" ng-model="stockItem.newItemEntry.Temperature" placeholder="Max" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="Add" ng-click="stockItem.saveStockItem();" class="btn btn-success" />
+            </div>
+
+            <div>{{stockItem.error}}</div>
+        </form>
+
+    </div>
+</div>

@@ -27,7 +27,7 @@ namespace IMS.Web
             );
 
             config.Routes.MapHttpRoute(
-                name: "StocksApi",
+                name: "StocksItemEntryApi",
                 routeTemplate: "api/{controller}/{action}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );

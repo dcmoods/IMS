@@ -12,6 +12,7 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
+                            <th>Use</th>
                             <th>Edit</th>
                             <th>Item id</th>
                             <th>Name</th>
@@ -28,7 +29,8 @@
                     <tbody ng-repeat="stockItem in vm.stockItems">
 
                         <tr>
-                            <td><a href="/#/stock/edit/{{stockItem.StockItemId}}">Edit</a></td>
+                            <td><button ng-click="vm.useStockItem(stockItem.StockItemId)" class="btn btn-sm btn-danger">Use</button></td>
+                            <td><a href="/#/stock/edit/{{stockItem.StockItemId}}" class="btn btn-sm btn-primary">Edit</a></td>
                             <td>{{stockItem.StockItemId }}</td>
                             <td>{{stockItem.Name }}</td>
                             <td>{{stockItem.Description }}</td>

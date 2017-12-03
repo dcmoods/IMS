@@ -13,7 +13,9 @@
 
         <div class="form-group">
             <label class="control-label">Category</label>
-            <select ng-model="addStock.newStockItem.Category" ng-options="Category.Name for Category in addStock.categories"></select>
+            <select class="form-control" 
+                    ng-model="addStock.newStockItem.CategoryId" 
+                    ng-options="Category.CategoryId as Category.Name for Category in addStock.categories"></select>
         </div>
 
         <div class="form-group">

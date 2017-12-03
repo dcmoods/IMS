@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace SharedKernel.Data
 {
-    public enum ObjectState
+    public interface IStateObject
     {
-        Unchanged = 0,
-        Added = 1,
-        Modified = 2,
-        Deleted = 3
+        ObjectState State { get; }
     }
 }

@@ -95,7 +95,7 @@
   <ItemGroup>
     <Compile Include="Enums\ObjectState.cs" />
     <Compile Include="GenericRepository.cs" />
-    <Compile Include="Interfaces\IObjectState.cs" />
+    <Compile Include="Interfaces\IStateObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>

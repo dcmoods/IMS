@@ -1,11 +1,10 @@
-﻿using SharedKernel.Data;
-using System;
+﻿using System;
+using SharedKernel.Data;
 
 namespace Stock.Domain
 {
     public class ItemEntry : IStateObject
-    {
-
+    { 
         //Factory method used to create new ItemEntries
         public static ItemEntry Create(int stockItemId, double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
         {
@@ -20,7 +19,7 @@ namespace Stock.Domain
             ExpirationDate = expirationDate;
             PricePerUnit = pricePerUnit;
             Temperature = temperature;
-            State = ObjectState.Added;
+            this.State = ObjectState.Added;
         }
 
         //Icluded to help with ORM
@@ -36,11 +35,33 @@ namespace Stock.Domain
         public double Quantity { get; set; }
         public decimal PricePerUnit { get; set; }
         public string Temperature { get; set; }
+        public ObjectState State { get; set; }
+       
 
-        public ObjectState State
+        public void UpdateQuantity(double newQuantity)
         {
-            get; set;
-           
+            if (Quantity != newQuantity && Quantity > 1)
+            {
+                Quantity = newQuantity;
+                this.State = ObjectState.Modified;
+            }
+            else if (Quantity <= 0)
+            {
+                this.State = ObjectState.Deleted;
+            }
+        }
+
+        public void UseSingleItem()
+        {
+            if (this.Quantity > 1)
+            {
+                this.Quantity -= 1;
+                this.State = ObjectState.Modified;
+            }
+            else
+            {
+                this.State = ObjectState.Deleted;
+            }
         }
     }
 }

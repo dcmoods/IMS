@@ -24,6 +24,7 @@ namespace Stock.Domain
         public string LevelUnit { get; set; }
         public int ReceivedBy { get; set; }
         public int UsedBy { get; set; }
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
 
         public ICollection<ItemEntry> ItemEntries
@@ -60,8 +61,11 @@ namespace Stock.Domain
         {
             var soonestExpirationDate = _itemEntries.Select(ie => ie.ExpirationDate).Min();
             var itemEntry = _itemEntries.FirstOrDefault(ie => ie.ExpirationDate == soonestExpirationDate);
-            _itemEntries.Remove(itemEntry);
-            itemEntry.State = SharedKernel.Data.ObjectState.Deleted;
+            itemEntry.UseSingleItem();
+            if (itemEntry.State == SharedKernel.Data.ObjectState.Deleted)
+            {
+                _itemEntries.Remove(itemEntry);
+            }
         }
 
         public void InsertNewItemEntry(double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
