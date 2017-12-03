@@ -13,6 +13,18 @@
                 .catch(addStockError);
         };
 
+        dataService.getCategories()
+            .then(getCategoriesSuccess)
+            .catch(getCategoriesError);
+
+        function getCategoriesSuccess(data) {
+            vm.categories = data;
+            $log.info(data);
+        }
+
+        function getCategoriesError(response) {
+            $log.error(response)
+        }
 
         function addStockSuccess(response) {
             $log.info(response);

@@ -1,6 +1,7 @@
 ﻿using Stock.Domain;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using SharedKernel.Data;
 
 namespace Stock.Data
 {
@@ -17,6 +18,7 @@ namespace Stock.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.HasDefaultSchema("Stock");
+            modelBuilder.Types<IStateObject>().Configure(c => c.Ignore(p => p.State));
             base.OnModelCreating(modelBuilder);
         }
     }

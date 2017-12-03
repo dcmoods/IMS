@@ -80,11 +80,16 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StockItemsData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SharedKernel.Data\SharedKernel.Data.csproj">
+      <Project>{6B9C59E3-0172-47A1-9629-87C932FBE0A5}</Project>
+      <Name>SharedKernel.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stock.Domain\Stock.Domain.csproj">
       <Project>{27f329a3-2dfd-4367-aa23-2482e53b7183}</Project>
       <Name>Stock.Domain</Name>

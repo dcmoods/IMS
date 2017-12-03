@@ -1,29 +1,31 @@
-﻿using System;
+﻿using SharedKernel.Data;
+using System;
 
 namespace Stock.Domain
 {
-    public class ItemEntry
+    public class ItemEntry : IStateObject
     {
 
         //Factory method used to create new ItemEntries
-        public static ItemEntry Create(double quantity,
-                                    decimal pricePerUnit, DateTime expirationDate, string temperature = "")
+        public static ItemEntry Create(int stockItemId, double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
         {
-            return new ItemEntry(quantity, pricePerUnit, expirationDate, temperature);
+            return new ItemEntry(stockItemId, quantity, pricePerUnit, expirationDate, temperature);
         }
 
-        private ItemEntry(double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
+        private ItemEntry(int stockItemId, double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
         {
+            StockItemId = stockItemId;
             Quantity = quantity;
             ReceivedDate = DateTime.Now;
             ExpirationDate = expirationDate;
             PricePerUnit = pricePerUnit;
             Temperature = temperature;
+            State = ObjectState.Added;
         }
 
         //Icluded to help with ORM
         //entity framework requires a public constructor for navigation properites. 
-        public ItemEntry()
+        private ItemEntry()
         {
         }
 
@@ -34,5 +36,11 @@ namespace Stock.Domain
         public double Quantity { get; set; }
         public decimal PricePerUnit { get; set; }
         public string Temperature { get; set; }
+
+        public ObjectState State
+        {
+            get; set;
+           
+        }
     }
 }

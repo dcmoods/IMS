@@ -47,9 +47,9 @@ namespace SharedKernel.Data
             return includeProperties.Aggregate
               (queryable, (current, includeProperty) => current.Include(includeProperty));
         }
+
         public IEnumerable<TEntity> FindBy(Expression<Func<TEntity, bool>> predicate)
         {
-
             IEnumerable<TEntity> results = _dbSet.AsNoTracking()
               .Where(predicate).ToList();
             return results;

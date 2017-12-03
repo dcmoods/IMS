@@ -27,5 +27,10 @@ namespace IMS.Web.Controllers
         {
             return PartialView("_EditStock");
         }
+
+        public ActionResult ItemEntries()
+        {
+            return PartialView("_ItemEntries");
+        }
     }
 }

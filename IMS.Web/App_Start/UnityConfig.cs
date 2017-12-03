@@ -45,6 +45,7 @@ namespace IMS.Web
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<DbContext, StockContext>();
+            container.RegisterType<StockItemsData, StockItemsData>();
         }
     }
 }

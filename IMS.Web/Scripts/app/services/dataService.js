@@ -12,12 +12,14 @@
             getStockItemById: getStockItemById,
             addStockItem: addStockItem,
             updateStockItem: updateStockItem,
-            deleteStockItem: deleteStockItem
+            deleteStockItem: deleteStockItem,
+            insertItemEntry: insertItemEntry,
+            getCategories: getCategories
         };
 
         //get stock items and callbacks
         function getAllStockItems() {
-            return $http.get('api/stockitems')
+            return $http.get('api/stockitems/')
                 .then(sendResponseData)
                 .catch(sendGetErrors);
         }
@@ -84,6 +86,18 @@
 
         function deleteStockItemError(response) {
             $q.reject('Error deleting item. (HTTP status: ' + response.status + ')');
+        }
+
+        function insertItemEntry(item) {
+            return $http.put('api/stockitems/addItemEntry/' + item.StockItemId, item)
+               .then(updateStockItemSuccess)
+               .catch(updateStockItemError);
+        }
+
+        function getCategories() {
+            return $http.get('api/categories/')
+                    .then(sendResponseData)
+                    .catch(sendGetErrors);
         }
     }
 

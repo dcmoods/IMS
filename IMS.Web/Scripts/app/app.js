@@ -23,6 +23,12 @@
                     controller: 'EditStockController',
                     controllerAs: 'editStock'
                 })
+                .when('/stock/:stockItemId/itemEntries',
+                {
+                    templateUrl: 'Home/ItemEntries',
+                    controller: 'ItemEntryController',
+                    controllerAs: 'stockItem'
+                })
                 .otherwise('/');
 
             $locationProvider.html5Mode(true).hashPrefix('');

@@ -56,11 +56,18 @@ namespace Stock.Domain
             }
         }
 
-        public ItemEntry UseStockItem()
+        public void UseStockItem()
         {
             var soonestExpirationDate = _itemEntries.Select(ie => ie.ExpirationDate).Min();
-            return _itemEntries.FirstOrDefault(ie => ie.ExpirationDate == soonestExpirationDate);
+            var itemEntry = _itemEntries.FirstOrDefault(ie => ie.ExpirationDate == soonestExpirationDate);
+            _itemEntries.Remove(itemEntry);
+            itemEntry.State = SharedKernel.Data.ObjectState.Deleted;
         }
 
+        public void InsertNewItemEntry(double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")
+        {
+            var itemEntry = ItemEntry.Create(this.StockItemId, quantity, pricePerUnit, expirationDate, temperature = "");
+            _itemEntries.Add(itemEntry);
+        }
     }
 }

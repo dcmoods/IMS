@@ -20,22 +20,23 @@ namespace IMS.Web.Controllers
         private StockContext db = new StockContext();
 
         private readonly GenericRepository<StockItem> _repository;
+        private readonly StockItemsData _stockRepo;
 
-
-        public StockItemsController(GenericRepository<StockItem> repository)
+        public StockItemsController(GenericRepository<StockItem> repository, StockItemsData stockRepo)
         {
             _repository = repository;
+            _stockRepo = stockRepo;
         }
 
         public IEnumerable<StockItem> GetStockItems()
         {
-            return _repository.AllInclude(si => si.ItemEntries);
+            return _stockRepo.GetStockItemsWithItemEntries();
         }
 
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult GetStockItem(int id)
         {
-            StockItem stockItem = _repository.FindByKey(id);
+            StockItem stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
             if (stockItem == null)
             {
                 return NotFound();
@@ -43,6 +44,7 @@ namespace IMS.Web.Controllers
 
             return Ok(stockItem);
         }
+
 
         public IHttpActionResult PutStockItem(int id, StockItem stockItem)
         {
@@ -55,7 +57,6 @@ namespace IMS.Web.Controllers
             {
                 return BadRequest();
             }
-
 
             try
             {
@@ -94,6 +95,7 @@ namespace IMS.Web.Controllers
             return CreatedAtRoute("DefaultApi", new { id = stockItem.StockItemId }, stockItem);
         }
 
+        //TODO UPDATE AND IMPLEMENT THIS
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult DeleteStockItem(int id)
         {
@@ -107,6 +109,27 @@ namespace IMS.Web.Controllers
             db.SaveChanges();
 
             return Ok(stockItem);
+        }
+
+        [HttpPut]
+        public IHttpActionResult AddItemEntry(int id, ItemEntry item)
+        {
+
+            var stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
+            if (stockItem == null)
+            {
+                return NotFound();
+            }
+
+            if (id != stockItem.StockItemId)
+            {
+                return BadRequest();
+            }
+
+            stockItem.InsertNewItemEntry(item.Quantity, item.PricePerUnit, item.ExpirationDate, item.Temperature);
+            _stockRepo.UpdateItemsForExistingStock(stockItem);
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         protected override void Dispose(bool disposing)

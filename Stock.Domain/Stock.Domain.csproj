@@ -91,6 +91,12 @@
     <Compile Include="StockItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedKernel.Data\SharedKernel.Data.csproj">
+      <Project>{6b9c59e3-0172-47a1-9629-87c932fbe0a5}</Project>
+      <Name>SharedKernel.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

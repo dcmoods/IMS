@@ -40,8 +40,8 @@ namespace Stock.Data.Migrations
 
             List<ItemEntry> itemEntries = new List<ItemEntry>()
                 {
-                    ItemEntry.Create(15, 3.50m, DateTime.Now.AddDays(14)),
-                    ItemEntry.Create(20, 2.50m, DateTime.Now.AddDays(14))
+                    ItemEntry.Create(stockItem1.StockItemId,15, 3.50m, DateTime.Now.AddDays(14)),
+                    ItemEntry.Create(stockItem1.StockItemId,20, 2.50m, DateTime.Now.AddDays(14))
                 };
 
             stockItem1.AddItemEntries(itemEntries);            
@@ -60,8 +60,8 @@ namespace Stock.Data.Migrations
 
             itemEntries = new List<ItemEntry>()
             {
-                ItemEntry.Create(15, 3.00m, DateTime.Now.AddDays(14)),
-                ItemEntry.Create(12, 2.00m, DateTime.Now.AddDays(14))
+                ItemEntry.Create(stockItem2.StockItemId,15, 3.00m, DateTime.Now.AddDays(14)),
+                ItemEntry.Create(stockItem2.StockItemId,12, 2.00m, DateTime.Now.AddDays(14))
             };
 
             stockItem2.AddItemEntries(itemEntries);
@@ -76,7 +76,7 @@ namespace Stock.Data.Migrations
                 LevelUnit = "Gallons",
             };
 
-            stockItem3.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(10, 4.00m, DateTime.Now.AddDays(20), "28f") });
+            stockItem3.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(stockItem3.StockItemId, 10, 4.00m, DateTime.Now.AddDays(20), "28f") });
 
 
             var stockItem4 = new StockItem()
@@ -89,7 +89,7 @@ namespace Stock.Data.Migrations
                 LevelUnit = "Lbs",
             };
 
-            stockItem4.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(88, 1.98m, DateTime.Now.AddDays(7), "32f") });
+            stockItem4.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(stockItem4.StockItemId, 88, 1.98m, DateTime.Now.AddDays(7), "32f") });
 
             
             context.StockItems.AddOrUpdate(s => s.StockItemId, 

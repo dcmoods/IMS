@@ -22,6 +22,7 @@
                             <th>Max-Level</th>
                             <th>Unit Type</th>
                             <th>Items On Hand</th>
+                           
                         </tr>
                     </thead>
                     <tbody ng-repeat="stockItem in vm.stockItems">
@@ -36,7 +37,8 @@
                             <td>{{stockItem.MinimumLevel }}</td>
                             <td>{{stockItem.MaximumLevel }}</td>
                             <td>{{stockItem.LevelUnit }}</td>
-                            <td >
+                            <td>
+                            <a href="/#/stock/{{stockItem.StockItemId}}/itemEntries">Item entries</a>
                                 <table class="table table-bordered table-condensed">
                                     <thead>
                                         <tr>
