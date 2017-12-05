@@ -11,7 +11,6 @@ namespace Stock.Data
         public StockContext() : base("name=IMSConnectionString") { }
 
         public DbSet<Category> Categories { get; set; }
-        public DbSet<Employee> Employees { get; set; }
         public DbSet<StockItem> StockItems { get; set; }
         public DbSet<ItemEntry> ItemEntries { get; set; }
 

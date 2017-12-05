@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201712031428033_si_categoryId_added.Designer.cs">
       <DependentUpon>201712031428033_si_categoryId_added.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712051756160_remove_emp.cs" />
+    <Compile Include="Migrations\201712051756160_remove_emp.Designer.cs">
+      <DependentUpon>201712051756160_remove_emp.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -123,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712031428033_si_categoryId_added.resx">
       <DependentUpon>201712031428033_si_categoryId_added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712051756160_remove_emp.resx">
+      <DependentUpon>201712051756160_remove_emp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

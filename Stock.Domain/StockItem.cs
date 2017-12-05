@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedKernel.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -57,15 +58,12 @@ namespace Stock.Domain
             }
         }
 
+
         public void UseStockItem()
         {
             var soonestExpirationDate = _itemEntries.Select(ie => ie.ExpirationDate).Min();
             var itemEntry = _itemEntries.FirstOrDefault(ie => ie.ExpirationDate == soonestExpirationDate);
             itemEntry.UseSingleItem();
-            if (itemEntry.State == SharedKernel.Data.ObjectState.Deleted)
-            {
-                _itemEntries.Remove(itemEntry);
-            }
         }
 
         public void InsertNewItemEntry(double quantity, decimal pricePerUnit, DateTime expirationDate, string temperature = "")

@@ -18,33 +18,13 @@ namespace Stock.Data
             _context = context;
         }
 
-        public async Task<List<StockItem>> GetStockItemsAsync()
-        {
-            return await _context.StockItems.AsNoTracking().ToListAsync();
-        }
-
-        public List<StockItem> GetStockItems()
-        {
-            return _context.StockItems.AsNoTracking().ToList();
-        }
-
-        public StockItem GetStockItemByIdWithItemEntires(int id)
+        public StockItem GetStockItemByIdWithItemEntries(int id)
         {
             return _context.StockItems.AsNoTracking()
                 .Include(s => s.ItemEntries).SingleOrDefault(s => s.StockItemId == id);
         }
 
-        public List<StockItem> GetStockItemsWithItemEntries()
-        {
-            return _context.StockItems.Include(s => s.ItemEntries).AsNoTracking().ToList();
-        }
-
-        public List<Category> GetCategories()
-        {
-            return _context.Categories.AsNoTracking().ToList();
-        }
-
-        public void UpdateItemsForExistingStock(StockItem stockItem)
+        public StockItem UpdateItemsForExistingStock(StockItem stockItem)
         {
             _context.Configuration.AutoDetectChangesEnabled = false;
             foreach (var item in stockItem.ItemEntries)
@@ -54,6 +34,8 @@ namespace Stock.Data
             _context.ChangeTracker.DetectChanges();
             _context.FixState();
             _context.SaveChanges();
+
+            return this.GetStockItemByIdWithItemEntries(stockItem.StockItemId);
         }
     }
 }

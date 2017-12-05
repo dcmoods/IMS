@@ -77,6 +77,7 @@ namespace SharedKernel.Data
         public void Delete(int id)
         {
             var entity = FindByKey(id);
+            _dbSet.Attach(entity);
             _dbSet.Remove(entity);
             _context.SaveChanges();
         }

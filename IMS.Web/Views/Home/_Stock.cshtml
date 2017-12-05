@@ -2,12 +2,9 @@
     <div>
         <h2>Stock Items</h2>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
-
-            <a href="/#/stock/new">Add Stock Item</a>
+            <a href="/#/stock/new"><span class="glyphicon glyphicon-plus"></span> Add Stock Items</a>
             <div>
                 <table class="table table-bordered">
                     <thead>
@@ -23,14 +20,14 @@
                             <th>Max-Level</th>
                             <th>Unit Type</th>
                             <th>Items On Hand</th>
-                           
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody ng-repeat="stockItem in vm.stockItems">
 
                         <tr>
-                            <td><button ng-click="vm.useStockItem(stockItem.StockItemId)" class="btn btn-sm btn-danger">Use</button></td>
-                            <td><a href="/#/stock/edit/{{stockItem.StockItemId}}" class="btn btn-sm btn-primary">Edit</a></td>
+                            <td><button ng-click="vm.useStockItem(stockItem.StockItemId)" class="btn btn-xs btn-success">Use</button></td>
+                            <td><a href="/#/stock/edit/{{stockItem.StockItemId}}" class="btn btn-xs btn-primary">Edit</a></td>
                             <td>{{stockItem.StockItemId }}</td>
                             <td>{{stockItem.Name }}</td>
                             <td>{{stockItem.Description }}</td>
@@ -40,7 +37,7 @@
                             <td>{{stockItem.MaximumLevel }}</td>
                             <td>{{stockItem.LevelUnit }}</td>
                             <td>
-                            <a href="/#/stock/{{stockItem.StockItemId}}/itemEntries">Item entries</a>
+                            <a href="/#/stock/{{stockItem.StockItemId}}/itemEntries"><span class="glyphicon glyphicon-plus"></span> Add Items</a>
                                 <table class="table table-bordered table-condensed">
                                     <thead>
                                         <tr>
@@ -62,6 +59,7 @@
                                     </tbody>
                                 </table>
                             </td>
+                            <td><button ng-click="vm.deleteStockItem(stockItem.StockItemId)" class="btn btn-xs btn-danger">Delete</button></td>
                         </tr>
                     </tbody>
                 </table>

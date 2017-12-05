@@ -21,17 +21,23 @@
 
         vm.useStockItem = function (stockItemId) {
             dataService.useStockItem(stockItemId)
-                .then(useStockItemSuccess)
-                .catch(useStockItemError);
+                .then(callbackStockItemSuccess)
+                .catch(callbackStockItemError);
         }
 
-        function useStockItemSuccess(data) {
-            //vm.stockItems = stockItems;
+        function callbackStockItemSuccess(data) {
+            $log.data;
         }
 
-        function useStockItemError(err) {
+        function callbackStockItemError(err) {
             $log.error(err);
             vm.error = err;
+        }
+
+        vm.deleteStockItem = function (stockItemId) {
+            dataService.deleteStockItem(stockItemId)
+                .then(callbackStockItemSuccess)
+                .catch(callbackStockItemError);
         }
 
         //Connect to Stock Hub for live updates
@@ -44,22 +50,10 @@
         });
 
         stockHub.on('updateItem', function (data) {
-            $log.info(data);
             var array = vm.stockItems;
             for (var i = array.length - 1; i >= 0; i--) {
                 if (array[i].StockItemId === data.StockItemId) {
-                    array[i].Name = data.Name;
-                    array[i].Description = data.Description;
-                    array[i].MinimumLevel = data.MinimumLevel;
-                    array[i].MaximumLevel = data.MaximumLevel;
-                    array[i].LevelUnit = data.LevelUnit;
-                    for (var j = array[i].ItemEntries.length - 1; j >= 0; j--) {
-                        array[i].ItemEntries[j].Quantity = data.ItemEntries[j].Quantity;
-                        array[i].ItemEntries[j].PricePerUnit = data.ItemEntries[j].PricePerUnit;
-                        array[i].ItemEntries[j].ReceivedDate = data.ItemEntries[j].ReceivedDate;
-                        array[i].ItemEntries[j].ExpirationDate = data.ItemEntries[j].ExpirationDate;
-                        array[i].ItemEntries[j].Temperature = data.ItemEntries[j].Temperature;
-                    }
+                    array[i] = data;
                 }
             }
         });
@@ -72,6 +66,10 @@
                 }
             }
         });
+
+        stockHub.on('deleteStockItem', function (data) {
+            vm.stockItems = data;
+        })
 
         
 

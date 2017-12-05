@@ -17,9 +17,6 @@ namespace IMS.Web.Controllers
 {
     public class StockItemsController : BaseApiControllerWithHub<StockHub>
     {
-        private StockContext db = new StockContext();
-
-        //TODO REMOVE StockConext and GenericRepo
         private readonly GenericRepository<StockItem> _repository;
         private readonly StockItemsData _stockRepo;
 
@@ -31,13 +28,13 @@ namespace IMS.Web.Controllers
 
         public IEnumerable<StockItem> GetStockItems()
         {
-            return _stockRepo.GetStockItemsWithItemEntries();
+            return _repository.AllInclude(s => s.ItemEntries);
         }
 
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult GetStockItem(int id)
         {
-            StockItem stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
+            StockItem stockItem = _repository.FindByInclude(s => s.StockItemId == id, s => s.ItemEntries).First();
             if (stockItem == null)
             {
                 return NotFound();
@@ -96,19 +93,18 @@ namespace IMS.Web.Controllers
             return CreatedAtRoute("DefaultApi", new { id = stockItem.StockItemId }, stockItem);
         }
 
-        //TODO UPDATE AND IMPLEMENT THIS
         [ResponseType(typeof(StockItem))]
         public IHttpActionResult DeleteStockItem(int id)
         {
-            StockItem stockItem = db.StockItems.Find(id);
+            StockItem stockItem = _repository.FindByKey(id);
             if (stockItem == null)
             {
                 return NotFound();
             }
 
-            db.StockItems.Remove(stockItem);
-            db.SaveChanges();
-
+            _repository.Delete(stockItem.StockItemId);
+            var stockItems = _repository.AllInclude(s => s.ItemEntries);
+            Hub.Clients.Group("Restaurant").deleteStockItem(stockItems);
             return Ok(stockItem);
         }
 
@@ -119,7 +115,7 @@ namespace IMS.Web.Controllers
                 return BadRequest();
             }
 
-            var stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
+            var stockItem = _stockRepo.GetStockItemByIdWithItemEntries(id);
             if (stockItem == null)
             {
                 return NotFound();
@@ -129,7 +125,7 @@ namespace IMS.Web.Controllers
             {
 
                 stockItem.InsertNewItemEntry(item.Quantity, item.PricePerUnit, item.ExpirationDate, item.Temperature);
-                _stockRepo.UpdateItemsForExistingStock(stockItem);
+                stockItem = _stockRepo.UpdateItemsForExistingStock(stockItem);
 
                 Hub.Clients.Group("Restaurant").addItemEntry(item);
             }
@@ -152,7 +148,7 @@ namespace IMS.Web.Controllers
         public IHttpActionResult UseStockItem(int id)
         {
 
-            var stockItem = _stockRepo.GetStockItemByIdWithItemEntires(id);
+            var stockItem = _stockRepo.GetStockItemByIdWithItemEntries(id);
             if (stockItem == null)
             {
                 return NotFound();
@@ -161,7 +157,7 @@ namespace IMS.Web.Controllers
             try
             {
                 stockItem.UseStockItem();
-                _stockRepo.UpdateItemsForExistingStock(stockItem);
+                stockItem = _stockRepo.UpdateItemsForExistingStock(stockItem);
 
                 Hub.Clients.Group("Restaurant").updateItem(stockItem);
             }
@@ -172,15 +168,6 @@ namespace IMS.Web.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
 
         private bool StockItemExists(int id)

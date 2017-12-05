@@ -22,7 +22,7 @@ namespace Stock.Data.Migrations
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
 
-            context.Categories.AddOrUpdate(c => c.CategoryId,
+            context.Categories.AddOrUpdate(c => c.Name,
                 new Category() { Name = "Dry Good" },
                 new Category() { Name = "Frozen" },
                 new Category() { Name = "Cool" });
@@ -92,7 +92,7 @@ namespace Stock.Data.Migrations
             stockItem4.AddItemEntries(new List<ItemEntry>() { ItemEntry.Create(stockItem4.StockItemId, 88, 1.98m, DateTime.Now.AddDays(7), "32f") });
 
             
-            context.StockItems.AddOrUpdate(s => s.StockItemId, 
+            context.StockItems.AddOrUpdate(s => s.Name, 
                     stockItem1, 
                     stockItem2,
                     stockItem3,
