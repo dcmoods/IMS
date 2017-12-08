@@ -24,7 +24,7 @@ namespace Stock.Data
                 .Include(s => s.ItemEntries).SingleOrDefault(s => s.StockItemId == id);
         }
 
-        public StockItem UpdateItemsForExistingStock(StockItem stockItem)
+        public void UpdateItemsForExistingStock(StockItem stockItem)
         {
             _context.Configuration.AutoDetectChangesEnabled = false;
             foreach (var item in stockItem.ItemEntries)
@@ -34,8 +34,6 @@ namespace Stock.Data
             _context.ChangeTracker.DetectChanges();
             _context.FixState();
             _context.SaveChanges();
-
-            return this.GetStockItemByIdWithItemEntries(stockItem.StockItemId);
         }
     }
 }

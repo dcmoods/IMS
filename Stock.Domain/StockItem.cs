@@ -23,8 +23,6 @@ namespace Stock.Domain
         public double MinimumLevel { get; set; }
         public double MaximumLevel { get; set; }
         public string LevelUnit { get; set; }
-        public int ReceivedBy { get; set; }
-        public int UsedBy { get; set; }
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
@@ -57,7 +55,6 @@ namespace Stock.Domain
                 return _itemEntries.Sum(s => s.PricePerUnit * Convert.ToDecimal(s.Quantity));
             }
         }
-
 
         public void UseStockItem()
         {

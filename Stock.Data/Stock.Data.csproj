@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201712051756160_remove_emp.Designer.cs">
       <DependentUpon>201712051756160_remove_emp.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712081358255_stock_factory.cs" />
+    <Compile Include="Migrations\201712081358255_stock_factory.Designer.cs">
+      <DependentUpon>201712081358255_stock_factory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="StockContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -130,6 +134,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712051756160_remove_emp.resx">
       <DependentUpon>201712051756160_remove_emp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712081358255_stock_factory.resx">
+      <DependentUpon>201712081358255_stock_factory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -125,7 +125,7 @@ namespace IMS.Web.Controllers
             {
 
                 stockItem.InsertNewItemEntry(item.Quantity, item.PricePerUnit, item.ExpirationDate, item.Temperature);
-                stockItem = _stockRepo.UpdateItemsForExistingStock(stockItem);
+                _stockRepo.UpdateItemsForExistingStock(stockItem);
 
                 Hub.Clients.Group("Restaurant").addItemEntry(item);
             }
@@ -157,7 +157,8 @@ namespace IMS.Web.Controllers
             try
             {
                 stockItem.UseStockItem();
-                stockItem = _stockRepo.UpdateItemsForExistingStock(stockItem);
+                _stockRepo.UpdateItemsForExistingStock(stockItem);
+                stockItem = _stockRepo.GetStockItemByIdWithItemEntries(id);
 
                 Hub.Clients.Group("Restaurant").updateItem(stockItem);
             }
